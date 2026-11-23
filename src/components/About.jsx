@@ -1,5 +1,5 @@
 import { Code, Palette, Rocket, Users, Zap } from "lucide-react";
-import profileImage from "../assets/images/rian.jpg";
+import profileImage from "../assets/images/rian.png";
 
 const stats = [
   { value: "7th", label: "Semester Student" },
