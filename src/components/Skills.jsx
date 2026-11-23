@@ -1,0 +1,302 @@
+// src/components/Skills.jsx
+
+import { useState } from "react";
+
+import {
+  FaCss3Alt,
+  FaDatabase,
+  FaProjectDiagram,
+  FaCodeBranch,
+  FaLaptopCode,
+  FaServer,
+  FaShieldAlt,
+  FaNetworkWired,
+  FaLock,
+  FaPython,
+  FaLinux,
+  FaWindows,
+  FaJava,
+} from "react-icons/fa";
+
+import {
+  SiHtml5,
+  SiJavascript,
+  SiReact,
+  SiTailwindcss,
+  SiMysql,
+  SiGit,
+  SiGithub,
+  SiVite,
+  SiPhp,
+  SiLaravel,
+  SiWireshark,
+  SiKalilinux,
+  SiUbuntu,
+  SiCisco,
+} from "react-icons/si";
+
+import { VscVscode } from "react-icons/vsc";
+
+const skillCategories = [
+  {
+    title: "Networking",
+    tagline: "Designing, configuring and troubleshooting computer networks",
+    icon: FaNetworkWired,
+    skills: [
+      { name: "Cisco Networking", icon: SiCisco, color: "#049FD9" },
+      { name: "Routing & Switching", icon: FaNetworkWired, color: "#38BDF8" },
+      { name: "TCP/IP", icon: FaServer, color: "#14B8A6" },
+      { name: "VLANs", icon: FaProjectDiagram, color: "#8B5CF6" },
+      { name: "MPLS", icon: FaNetworkWired, color: "#F59E0B" },
+      { name: "GNS3", icon: FaProjectDiagram, color: "#22C55E" },
+      { name: "Network Troubleshooting", icon: FaCodeBranch, color: "#00D4FF" },
+      { name: "Network Design", icon: FaNetworkWired, color: "#06B6D4" },
+    ],
+  },
+  {
+    title: "Cybersecurity",
+    tagline: "Exploring network defense, security tools and secure systems",
+    icon: FaShieldAlt,
+    skills: [
+      { name: "OPNsense Firewall", icon: FaShieldAlt, color: "#E95420" },
+      { name: "Wireshark", icon: SiWireshark, color: "#1679A7" },
+      { name: "Kali Linux", icon: SiKalilinux, color: "#557C94" },
+      { name: "Nmap", icon: FaNetworkWired, color: "#22C55E" },
+      { name: "Firewalls & ACLs", icon: FaShieldAlt, color: "#F59E0B" },
+      { name: "IDS / IPS", icon: FaShieldAlt, color: "#8B5CF6" },
+      { name: "Cryptography", icon: FaLock, color: "#00D4FF" },
+      { name: "Web Security", icon: FaServer, color: "#14B8A6" },
+    ],
+  },
+  {
+    title: "Programming",
+    tagline: "Building web applications and practical software solutions",
+    icon: FaLaptopCode,
+    skills: [
+      { name: "Python", icon: FaPython, color: "#3776AB" },
+      { name: "PHP", icon: SiPhp, color: "#777BB4" },
+      { name: "Laravel", icon: SiLaravel, color: "#FF2D20" },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "HTML5", icon: SiHtml5, color: "#E34F26" },
+      { name: "CSS3", icon: FaCss3Alt, color: "#1572B6" },
+      { name: "React", icon: SiReact, color: "#61DAFB" },
+      { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+    ],
+  },
+  {
+    title: "Databases",
+    tagline: "Designing relational databases and exploring data warehousing",
+    icon: FaDatabase,
+    skills: [
+      { name: "SQL Server", icon: FaDatabase, color: "#CC2927" },
+      { name: "MySQL", icon: SiMysql, color: "#4479A1" },
+      { name: "SQL", icon: FaDatabase, color: "#38BDF8" },
+      { name: "Database Design", icon: FaProjectDiagram, color: "#14B8A6" },
+      { name: "ERD", icon: FaProjectDiagram, color: "#8B5CF6" },
+      { name: "OLTP", icon: FaDatabase, color: "#22C55E" },
+      { name: "OLAP", icon: FaDatabase, color: "#F59E0B" },
+      { name: "Data Warehousing", icon: FaServer, color: "#00D4FF" },
+    ],
+  },
+  {
+    title: "Tools & Learning",
+    tagline: "Practical lab environments and continuous technical learning",
+    icon: FaCodeBranch,
+    skills: [
+      { name: "Git", icon: SiGit, color: "#F05032" },
+      { name: "GitHub", icon: SiGithub, color: "#CBD5E1" },
+      { name: "VS Code", icon: VscVscode, color: "#007ACC" },
+      { name: "VMware", icon: FaServer, color: "#38BDF8" },
+      { name: "Ubuntu", icon: SiUbuntu, color: "#E95420" },
+      { name: "Linux", icon: FaLinux, color: "#FCC624" },
+      { name: "Windows", icon: FaWindows, color: "#0078D6" },
+      { name: "Vite", icon: SiVite, color: "#646CFF" },
+    ],
+  },
+];
+
+const additionalSkills = [
+  "Network Configuration",
+  "Network Monitoring",
+  "Routing Protocols",
+  "Firewall Configuration",
+  "Virtualization",
+  "Access Control",
+  "SQL Injection Testing",
+  "File Encryption",
+  "Problem Solving",
+  "Debugging",
+  "Software Testing",
+  "RESTful APIs",
+];
+
+const Skills = () => {
+  const [activeCategory, setActiveCategory] = useState(0);
+
+  const active = skillCategories[activeCategory];
+
+  return (
+    <section id="skills" className="relative overflow-hidden px-4 py-24">
+      <div className="mx-auto max-w-7xl">
+        {/* Section Header */}
+        <div data-aos="fade-up" className="mb-14 text-center">
+          <span className="text-sm font-medium tracking-widest uppercase text-neon">
+            My Expertise
+          </span>
+
+          <h2 className="mt-3 mb-4 font-display text-2xl font-bold md:text-4xl">
+            <span className="text-white">Technologies </span>
+            <span className="text-gradient">I Work With</span>
+          </h2>
+
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-gray-400 md:text-lg">
+            My technical skills and practical experience in computer networking,
+            cybersecurity, programming, database systems, and virtual laboratory
+            environments.
+          </p>
+        </div>
+
+        {/* Category Navigation */}
+        <div
+          data-aos="fade-up"
+          data-aos-delay="100"
+          className="mb-12 flex flex-wrap justify-center gap-3"
+          role="group"
+          aria-label="Technology categories"
+        >
+          {skillCategories.map((category, index) => {
+            const CategoryIcon = category.icon;
+            const isActive = activeCategory === index;
+
+            return (
+              <button
+                key={category.title}
+                type="button"
+                onClick={() => setActiveCategory(index)}
+                aria-pressed={isActive}
+                className={`flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-medium transition-all duration-300 ${
+                  isActive
+                    ? "border-neon/40 bg-gradient-to-r from-neon/15 to-neon-blue/15 text-neon shadow-lg shadow-neon/10"
+                    : "border-white/5 glass-card text-gray-400 hover:border-white/20 hover:text-white"
+                }`}
+              >
+                <CategoryIcon className="text-base" />
+                {category.title}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active Category Introduction */}
+        <div key={active.title} data-aos="fade-up" className="mb-8 text-center">
+          <h3 className="text-xl font-semibold text-white">{active.title}</h3>
+
+          <p className="mt-2 text-sm text-gray-400">{active.tagline}</p>
+        </div>
+
+        {/* Technology Grid */}
+        <div
+          key={`skills-${activeCategory}`}
+          className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+        >
+          {active.skills.map((skill, index) => {
+            const Icon = skill.icon;
+
+            return (
+              <article
+                key={skill.name}
+                data-aos="zoom-in"
+                data-aos-delay={index * 60}
+                className="group relative flex min-h-40 flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-white/5 glass-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-neon/30"
+              >
+                {/* Hover Glow */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{
+                    background: `radial-gradient(circle at 50% 0%, ${skill.color}22, transparent 70%)`,
+                  }}
+                />
+
+                {/* Technology Icon */}
+                <div
+                  className="relative flex h-14 w-14 items-center justify-center rounded-2xl text-3xl transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    backgroundColor: `${skill.color}15`,
+                    color: skill.color,
+                    boxShadow: `0 0 0 1px ${skill.color}30`,
+                  }}
+                >
+                  <Icon aria-hidden="true" />
+                </div>
+
+                {/* Technology Name */}
+                <h4 className="relative text-center text-sm font-medium text-gray-300 transition-colors duration-300 group-hover:text-white">
+                  {skill.name}
+                </h4>
+
+                {/* Bottom Accent */}
+                <div
+                  aria-hidden="true"
+                  className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 rounded-full transition-all duration-300 group-hover:w-1/2"
+                  style={{ backgroundColor: skill.color }}
+                />
+              </article>
+            );
+          })}
+        </div>
+
+        {/* Additional Technologies */}
+        <div
+          data-aos="fade-up"
+          data-aos-delay="200"
+          className="mt-16 overflow-hidden rounded-3xl glass-card p-7 md:p-10"
+        >
+          <div className="mb-8 text-center">
+            <span className="text-xs font-medium uppercase tracking-widest text-neon">
+              Beyond The Stack
+            </span>
+
+            <h3 className="mt-3 text-xl font-semibold text-white">
+              Additional Skills & Concepts
+            </h3>
+
+            <p className="mt-2 text-sm text-gray-400">
+              Other networking, cybersecurity, and engineering practices.
+            </p>
+          </div>
+
+          {/* Technology Marquee */}
+          <div className="group/marquee relative overflow-hidden">
+            {/* Edge Fades */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[#0a0a0a] to-transparent md:w-20" />
+
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[#0a0a0a] to-transparent md:w-20" />
+
+            {/* Moving Content */}
+            <div className="flex w-max animate-marquee motion-reduce:animate-none group-hover/marquee:[animation-play-state:paused]">
+              {[0, 1].map((group) => (
+                <div
+                  key={group}
+                  className="flex shrink-0 items-center gap-3 pr-3"
+                  aria-hidden={group === 1}
+                >
+                  {additionalSkills.map((tech) => (
+                    <span
+                      key={tech}
+                      className="whitespace-nowrap rounded-full border border-white/10 glass-card px-4 py-2.5 text-sm text-zinc-400 transition-all duration-300 hover:border-neon/30 hover:text-neon"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Skills;
